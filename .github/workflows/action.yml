@@ -1,1 +1,31 @@
+name: portfolio
 
+on:
+    push:
+        branch: [main]
+    workflow-dispatch:
+
+permossions:
+    pages: write
+    id-token: write
+
+jobs:
+    deploy:
+        runs-on: unbuntu-latest
+
+        enviroment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.pages_url }}
+
+        steps:
+            - name: checkout code
+              users: actions/checkout@v4
+
+            - name: setup github pages
+              users: actions/confige-pages@v4
+
+            - name: Upload static file
+              users: actions/upload-pages-artifact@v4
+
+            - name: Deploy to github pages
+              users: actions/deploy-pages@v4
